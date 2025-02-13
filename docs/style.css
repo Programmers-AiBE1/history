@@ -27,6 +27,13 @@ h6,
 header {
   font-family: "PartialSansKR-Regular";
 }
+/* ✅ 프로필 이미지 크기 조정 */
+.profile-img {
+  width: 150px; /* ✅ 원하는 크기로 조절 (예: 150px) */
+  height: 150px; /* ✅ 높이도 동일하게 맞춤 */
+  object-fit: cover; /* ✅ 이미지 비율 유지하면서 크롭 */
+  border-radius: 50%; /* ✅ 원형 유지 */
+}
 
 #box p {
   white-space: pre-wrap;
