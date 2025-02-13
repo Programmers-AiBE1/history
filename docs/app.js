@@ -49,18 +49,18 @@ async function main() {
       const imageContainer = document.getElementById("image-container");
       imageContainer.innerHTML = ""; // 기존 업적 이미지 삭제
 
-      // ✅ 🔥 업적 이미지 3장 추가
-      json.achievements.forEach(({ achievement, imageUrl }) => {
+      // ✅ 🔥 업적 이미지 3장 추가 (서버 응답 형식에 맞게 처리)
+      json.achievements.forEach(({ achievement, imageUrl }, index) => {
         const achievementWrapper = document.createElement("div");
         achievementWrapper.classList.add("achievement-item", "text-center");
 
         const achievementTitle = document.createElement("h5");
-        achievementTitle.textContent = achievement || "업적 정보 없음";
+        achievementTitle.textContent = `${index + 1}. ${achievement || "업적 정보 없음"}`;
 
         const imageTag = document.createElement("img");
         imageTag.classList.add("img-fluid", "mt-3", "achievement-image");
         imageTag.src = imageUrl || "default-image.png";
-        imageTag.alt = achievement || "업적 이미지";
+        imageTag.alt = achievement || `업적 이미지 ${index + 1}`;
 
         // 🔥 이미지 로딩 실패 시 기본 이미지 표시
         imageTag.onerror = () => {
@@ -70,7 +70,7 @@ async function main() {
 
         achievementWrapper.appendChild(achievementTitle);
         achievementWrapper.appendChild(imageTag);
-        imageContainer.appendChild(achievementWrapper); // 업적 이미지 추가
+        imageContainer.appendChild(achievementWrapper);
       });
 
     } catch (error) {
