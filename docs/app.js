@@ -26,21 +26,20 @@ async function main() {
       }
 
       const json = await response.json(); // 응답을 JSON으로 변환
-      const { name, description, achievements } = json; // ✅ 서버에서 받은 데이터 추출
+      const { name, achievements } = json; // ✅ 서버에서 받은 데이터 추출
 
       if (!achievements || !Array.isArray(achievements) || achievements.length !== 3) {
         throw new Error("서버에서 받은 업적 데이터가 올바르지 않습니다.");
       }
 
-      // ✅ 🔥 위인 이름 & 설명 업데이트
+      // ✅ 🔥 위인 이름 업데이트
       document.getElementById("profile-name").textContent = name || "이름 없음"; // 기본값 처리
-      document.getElementById("profile-desc").textContent = description || "설명 없음"; // 기본값 처리
 
       // ✅ 🔥 업적 이미지 표시 영역 초기화 후 추가
       const imageContainer = document.getElementById("image-container");
       imageContainer.innerHTML = ""; // 기존 업적 이미지 삭제
 
-      // ✅ 🔥 업적 이미지 3장 추가 (안전하게 처리)
+      // ✅ 🔥 업적 이미지 3장 추가
       achievements.forEach(({ achievement, imageUrl }, index) => {
         const achievementWrapper = document.createElement("div");
         achievementWrapper.classList.add("achievement-item");
