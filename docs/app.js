@@ -8,7 +8,7 @@ async function main() {
       document.querySelector("#box").appendChild(spinner);
   
       // const url = "http://127.0.0.1:3000";
-      const url = "https://rigorous-dent-petunia.glitch.me"; //너의 영화 추천 서버 API를 사용하려면 URL 변경해야 해
+      const url = "https://coordinated-onyx-ethernet.glitch.me"; //너의 영화 추천 서버 API를 사용하려면 URL 변경해야 해
       const formData = new FormData(document.querySelector("#ccForm"));
       const text = formData.get("text");
       // console.log(text);
