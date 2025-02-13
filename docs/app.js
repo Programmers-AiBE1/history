@@ -3,54 +3,44 @@ async function main() {
     event.preventDefault(); // ✅ 기본 Form 제출 막기 (새로고침 방지)
 
     // ✅ 로딩 스피너 표시
-    document.getElementById("loading-spinner").style.display = "block";
+    const loadingSpinner = document.getElementById("loading-spinner");
+    loadingSpinner.style.display = "block";
 
     // ✅ 서버 API URL
-    const url = "https://coordinated-onyx-ethernet.glitch.me"; 
+    const url = "https://coordinated-onyx-ethernet.glitch.me";
     const formData = new FormData(document.querySelector("#ccForm"));
-    const text = formData.get("text"); // 사용자가 입력한 위인의 이름 가져오기
+    const text = formData.get("text").trim(); // 사용자가 입력한 위인의 이름 가져오기
 
     // ✅ 검색어가 없으면 요청하지 않음
-    if (!text.trim()) {
+    if (!text) {
       alert("검색할 위인의 이름을 입력하세요!");
-      document.getElementById("loading-spinner").style.display = "none";
+      loadingSpinner.style.display = "none";
       return;
     }
 
     try {
-      let retryCount = 0;
-      let json;
+      // ✅ 서버에 요청 보내기 (POST 요청)
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ text }), // JSON 형식으로 변환하여 보냄
+        headers: { "Content-Type": "application/json" },
+      });
 
-      while (retryCount < 10) { // 최대 10번 재시도
-        console.log(`🔄 ${retryCount + 1}번째 요청 시도...`);
-
-        // ✅ 서버에 요청 보내기 (POST 요청)
-        const response = await fetch(url, {
-          method: "POST",
-          body: JSON.stringify({ text }), // JSON 형식으로 변환하여 보냄
-          headers: { "Content-Type": "application/json" },
-        });
-
-        json = await response.json(); // 응답을 JSON으로 변환
-        console.log("📢 서버 응답 데이터:", json); // 🔥 서버에서 받은 데이터 확인 (디버깅용)
-
-        // ✅ 이미지 생성이 아직 진행 중이면 10초 후 재요청
-        if (json.status === "processing") {
-          console.warn("⏳ 이미지 생성 중... 10초 후 다시 요청합니다.");
-          await new Promise(resolve => setTimeout(resolve, 10000)); // 10초 대기 후 다시 요청
-          retryCount++;
-          continue;
-        } else {
-          break; // 정상 데이터 수신 시 반복 종료
-        }
+      // ✅ 응답이 정상인지 확인
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류: ${response.status}`);
       }
 
-      if (!json.achievements || !Array.isArray(json.achievements)) {
+      const json = await response.json(); // 응답을 JSON으로 변환
+      console.log("📢 서버 응답 데이터:", json); // 🔥 서버에서 받은 데이터 확인 (디버깅용)
+
+      // ✅ json이 제대로 생성되지 않았을 경우 대비
+      if (!json || !json.achievements || !Array.isArray(json.achievements)) {
         throw new Error("서버에서 받은 업적 데이터가 올바르지 않습니다.");
       }
 
       // ✅ 로딩 스피너 숨기기
-      document.getElementById("loading-spinner").style.display = "none";
+      loadingSpinner.style.display = "none";
 
       // ✅ 🔥 위인 이름 업데이트
       document.getElementById("profile-name").textContent = json.name || "이름 없음"; // 기본값 처리
@@ -65,11 +55,11 @@ async function main() {
         achievementWrapper.classList.add("achievement-item", "text-center");
 
         const achievementTitle = document.createElement("h5");
-        achievementTitle.textContent = achievement; // 업적 제목 추가
+        achievementTitle.textContent = achievement || "업적 정보 없음";
 
         const imageTag = document.createElement("img");
-        imageTag.classList.add("img-fluid", "mt-3", "achievement-image"); // Bootstrap 스타일 적용
-        imageTag.src = imageUrl; // 서버에서 받은 업적 이미지 적용
+        imageTag.classList.add("img-fluid", "mt-3", "achievement-image");
+        imageTag.src = imageUrl || "default-image.png";
         imageTag.alt = achievement || "업적 이미지";
 
         // 🔥 이미지 로딩 실패 시 기본 이미지 표시
@@ -86,7 +76,7 @@ async function main() {
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);
       alert("위인 정보를 불러오는 중 오류가 발생했습니다.");
-      document.getElementById("loading-spinner").style.display = "none";
+      loadingSpinner.style.display = "none";
     }
   }
 
