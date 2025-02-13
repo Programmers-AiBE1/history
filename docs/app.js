@@ -26,13 +26,12 @@ async function main() {
       });
 
       const json = await response.json(); // 응답을 JSON으로 변환
-      const { name, profileImage, description, achievementImages } = json; // ✅ 서버에서 받은 데이터 추출
+      const { name, description, achievements } = json; // ✅ 서버에서 받은 데이터 추출
 
       // ✅ 로딩 스피너 숨기기
       document.getElementById("loading-spinner").style.display = "none";
 
-      // ✅ 🔥 프로필 이미지 업데이트
-      document.getElementById("profile-image").src = profileImage; // 프로필 사진 변경
+      // ✅ 🔥 위인 이름 & 설명 업데이트
       document.getElementById("profile-name").textContent = name; // 위인 이름 업데이트
       document.getElementById("profile-desc").textContent = description; // 위인 설명 업데이트
 
@@ -41,7 +40,7 @@ async function main() {
       imageContainer.innerHTML = ""; // 기존 업적 이미지 삭제
 
       // ✅ 🔥 업적 이미지 3장 추가
-      achievementImages.forEach(({ achievement, imageUrl }) => {
+      achievements.forEach(({ achievement, imageUrl }) => {
         const achievementWrapper = document.createElement("div");
         achievementWrapper.classList.add("achievement-item");
 

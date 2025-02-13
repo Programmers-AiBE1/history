@@ -19,33 +19,11 @@
   
   <main>
     <section class="container mt-4">
-      <!-- ✅ 프로필 컨테이너 -->
-      <div class="profile-box d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-4">
-          
-          <!-- ✅ 프로필 이미지 영역 -->
-          <div class="profile-image-container position-relative">
-            <img id="profile-image" src="default-profile.png" alt="Profile Picture" class="rounded-circle profile-img w-25 h-auto" />
-            
-            <!-- 🔹 로딩 스피너 (데이터 로딩 중 표시됨) -->
-            <div id="loading-spinner" class="spinner-border text-primary position-absolute top-50 start-50 translate-middle" role="status" style="display: none;">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-
-          <!-- ✅ 프로필 정보 -->
-          <div class="profile-info">
-            <h2 id="profile-name" class="fw-bold">위인의 이름</h2>
-            <p id="profile-desc" class="text-muted">위인에 대한 설명</p>
-          </div>
-        </div>
-        
-        <!-- 🔹 팔로우 및 메시지 버튼 -->
-        <div class="profile-actions">
-          <button class="btn btn-primary">팔로우</button>
-          <button class="btn btn-outline-secondary">메시지 보내기</button>
-          <button class="btn btn-outline-secondary">...</button> 
-        </div>
+      
+      <!-- ✅ 위인 정보 영역 -->
+      <div class="profile-box text-center">
+        <h2 id="profile-name" class="fw-bold">위인의 이름</h2>
+        <p id="profile-desc" class="text-muted">위인에 대한 설명</p>
       </div>
 
       <hr>
@@ -63,14 +41,14 @@
         </div>
       </div>
 
+      <!-- ✅ 🔥 위인 업적 정보 표시 영역 -->
+      <div id="achievement-container" class="mt-4 d-flex justify-content-center flex-column align-items-center">
+        <!-- 업적 정보가 여기에 추가됨 -->
+      </div>
+
       <!-- ✅ 🔥 위인 업적 이미지 표시 영역 -->
       <div id="image-container" class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
         <!-- AI가 생성한 업적 이미지 3개가 여기에 추가될 예정 -->
-      </div>
-
-      <!-- ✅ 🔥 업적 제목이 들어갈 공간 추가 -->
-      <div id="achievement-container" class="mt-4 d-flex justify-content-center flex-column align-items-center">
-        <!-- 업적 정보가 여기에 추가됨 -->
       </div>
 
     </section>
@@ -79,7 +57,7 @@
   <!-- ✅ Bootstrap JS 추가 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ✅ 사용자 정의 JavaScript (이미지 & 설명 업데이트하는 코드 포함) -->
+  <!-- ✅ 사용자 정의 JavaScript -->
   <script src="app.js"></script>
 
 </body>
