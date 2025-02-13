@@ -17,32 +17,35 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- 스타그램 로고 -->
+    <!-- ✅ Stargram 로고 -->
     <h1 class="fw-bold logo text-center">Stargram</h1>
 
     <hr class="my-0" />
     
     <main>
       <section class="container mt-4">
-        <!-- 프로필 컨테이너 -->
+        <!-- ✅ 프로필 컨테이너 -->
         <div class="profile-box d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center gap-4">
-            <!-- ✅ 프로필 이미지 (LLM 생성 이미지가 들어갈 부분) -->
+            <!-- ✅ LLM이 생성한 이미지가 들어가는 부분 -->
             <div class="profile-image-container position-relative">
+              <!-- 🔹 기본 프로필 이미지 (서버에서 받아온 `image` URL이 여기에 적용됨) -->
               <img src="https://via.placeholder.com/150" id="profile-image" alt="Profile Picture" class="rounded-circle profile-img" />
-              <!-- 로딩 스피너 -->
+              <!-- 🔹 로딩 스피너 (데이터 로딩 중 표시) -->
               <div id="loading-spinner" class="spinner-border text-primary position-absolute top-50 start-50 translate-middle" role="status" style="display: none;">
                 <span class="visually-hidden">Loading...</span>
               </div>
             </div>
 
             <div class="profile-info">
+              <!-- 🔹 위인의 이름이 여기에 업데이트됨 -->
               <h2 id="profile-name" class="fw-bold">위인의 이름</h2>
+              <!-- 🔹 위인 설명이 여기에 업데이트됨 -->
               <p id="profile-desc" class="text-muted">위인에 대한 설명</p>
             </div>
           </div>
           
-          <!-- 팔로우 및 메시지 버튼 -->
+          <!-- 🔹 팔로우 및 메시지 버튼 -->
           <div class="profile-actions">
             <button class="btn-follow">팔로우</button>
             <button class="btn-message">메시지 보내기</button>
@@ -52,13 +55,13 @@
         
         <hr>
         
-        <!-- 검색 입력 폼 -->
+        <!-- ✅ 검색 입력 폼 -->
         <form id="input-form" class="text-center mt-3">
           <input type="text" id="searchInput" name="text" class="form-control w-50 mx-auto d-inline" placeholder="위인을 입력하세요" />
           <button type="button" id="search-button" class="btn btn-primary mt-2">검색</button>
         </form>
 
-        <!-- ✅ 위인 정보 표시 영역 -->
+        <!-- ✅ LLM이 생성한 설명이 들어갈 부분 -->
         <div id="info-container" class="mt-4">
           <!-- AI가 생성한 설명이 여기에 출력됨 -->
         </div>
@@ -68,7 +71,7 @@
     <!-- Bootstrap JS 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- 사용자 정의 JavaScript 추가 -->
+    <!-- ✅ 사용자 정의 JavaScript (이미지 & 설명 업데이트하는 코드 포함) -->
     <script src="script.js"></script>
 
   </body>
