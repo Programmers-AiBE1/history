@@ -10,6 +10,15 @@
   
   <!-- ✅ 사용자 정의 CSS -->
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ✅ 로딩 스피너 스타일 */
+    .spinner-border {
+      display: none;
+      width: 3rem;
+      height: 3rem;
+    }
+  </style>
 </head>
 <body>
   <!-- ✅ 스타그램 로고 -->
@@ -34,6 +43,13 @@
         <button type="submit" id="search-button" class="btn btn-success mt-2">검색</button>
       </form>
 
+      <!-- ✅ 🔥 로딩 스피너 (이미지 생성 대기 중 표시됨) -->
+      <div class="text-center mt-4">
+        <div id="loading-spinner" class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
       <!-- ✅ 🔥 위인 설명이 들어갈 영역 -->
       <div id="info-container" class="mt-4 text-center">
         <div class="card p-3 shadow-sm"> 
@@ -46,9 +62,9 @@
         <!-- 업적 정보가 여기에 추가됨 -->
       </div>
 
-      <!-- ✅ 🔥 위인 업적 이미지 표시 영역 (JavaScript가 동적으로 추가할 공간) -->
+      <!-- ✅ 🔥 위인 업적 이미지 표시 영역 -->
       <div id="image-container" class="mt-4 d-flex justify-content-center gap-3">
-        <!-- AI가 생성한 업적 이미지 3개가 여기에 추가될 예정 -->
+        <!-- JavaScript에서 동적으로 업적 이미지 3개를 추가함 -->
       </div>
 
     </section>
