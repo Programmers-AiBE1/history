@@ -1,68 +1,55 @@
-<body>
-  <!-- ✅ 스타그램 로고 -->
-  <h1 class="fw-bold logo text-center">Stargram</h1>
+async function main() {
+  async function hanldeCC(event) {
+    event.preventDefault(); // ✅ 기본 Form 제출 막음 (새로고침 방지)
 
-  <hr class="my-0" />
-  
-  <main>
-    <section class="container mt-4">
-      <!-- ✅ 프로필 컨테이너 -->
-      <div class="profile-box d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-4">
-          
-          <!-- ✅ LLM이 생성한 이미지가 들어가는 프로필 이미지 영역 -->
-          <div class="profile-image-container position-relative">
-            <!-- 🔹 프로필 이미지 (서버에서 받아온 `image` URL이 적용될 곳) -->
-            <img id="profile-image" src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle profile-img" />
-            
-            <!-- 🔹 로딩 스피너 (데이터 로딩 중 표시됨) -->
-            <div id="loading-spinner" class="spinner-border text-primary position-absolute top-50 start-50 translate-middle" role="status" style="display: none;">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
+    // ✅ 로딩 스피너 표시
+    document.getElementById("loading-spinner").style.display = "block";
 
-          <!-- ✅ 프로필 정보 -->
-          <div class="profile-info">
-            <!-- 🔹 위인의 이름 업데이트 -->
-            <h2 id="profile-name" class="fw-bold">위인의 이름</h2>
-            <!-- 🔹 위인 설명 업데이트 -->
-            <p id="profile-desc" class="text-muted">위인에 대한 설명</p>
-          </div>
-        </div>
-        
-        <!-- 🔹 팔로우 및 메시지 버튼 -->
-        <div class="profile-actions">
-          <button class="btn btn-primary">팔로우</button>
-          <button class="btn btn-outline-secondary">메시지 보내기</button>
-          <button class="btn btn-outline-secondary">...</button> 
-        </div>
-      </div>
+    // ✅ 서버 API URL
+    const url = "https://coordinated-onyx-ethernet.glitch.me"; 
+    const formData = new FormData(document.querySelector("#ccForm"));
+    const text = formData.get("text"); // 사용자가 입력한 위인의 이름 가져오기
 
-      <hr>
+    // ✅ 검색어가 없으면 요청하지 않음
+    if (!text.trim()) {
+      alert("검색할 위인의 이름을 입력하세요!");
+      document.getElementById("loading-spinner").style.display = "none";
+      return;
+    }
 
-      <!-- ✅ 검색 입력 폼 -->
-      <form id="ccForm" class="text-center mt-3">
-        <input type="text" id="searchInput" name="text" class="form-control w-50 mx-auto d-inline" placeholder="위인을 입력하세요" />
-        <button type="submit" id="search-button" class="btn btn-success mt-2">검색</button>
-      </form>
+    // ✅ 서버에 요청 보내기 (POST 요청)
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ text }), // JSON 형식으로 변환하여 보냄
+      headers: { "Content-Type": "Application/json" },
+    });
 
-      <!-- ✅ LLM이 생성한 설명이 들어갈 부분 -->
-      <div id="info-container" class="mt-4 text-center">
-        <!-- AI가 생성한 설명이 여기에 출력됨 -->
-      </div>
+    const json = await response.json(); // 응답을 JSON으로 변환
+    const { image, desc } = json; // ✅ 서버에서 받은 데이터 추출
 
-      <!-- ✅ 위인 업적 이미지 표시 영역 -->
-      <div id="image-container" class="mt-4 grid-container text-center">
-        <!-- AI가 생성한 업적 이미지가 여기에 추가될 예정 -->
-      </div>
+    // ✅ 로딩 스피너 숨기기
+    document.getElementById("loading-spinner").style.display = "none";
 
-    </section>
-  </main>
+    // ✅ 🔥 프로필 이미지 업데이트 (기존 `box.appendChild(imageTag);` 대신)
+    document.getElementById("profile-image").src = image; // 프로필 사진 변경
+    document.getElementById("profile-name").textContent = text; // 위인 이름 업데이트
+    document.getElementById("profile-desc").textContent = desc; // 위인 설명 업데이트
 
-  <!-- ✅ Bootstrap JS 추가 -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    // ✅ 🔥 업적 이미지 표시 영역 초기화 후 추가 가능 (추후 확장 가능)
+    const imageContainer = document.getElementById("image-container");
+    imageContainer.innerHTML = ""; // 기존 이미지 삭제
 
-  <!-- ✅ 사용자 정의 JavaScript (이미지 & 설명 업데이트하는 코드 포함) -->
-  <script src="script.js"></script>
+    const imageTag = document.createElement("img");
+    imageTag.classList.add("img-fluid", "mt-3"); // Bootstrap 스타일 적용
+    imageTag.src = image; // 서버에서 받은 이미지 적용
+    imageContainer.appendChild(imageTag); // 이미지 추가
+  }
 
-</body>
+  // ✅ 폼 제출 시 `hanldeCC` 실행
+  document.querySelector("#ccForm").addEventListener("submit", hanldeCC);
+
+  // ✅ 검색 버튼 클릭 시에도 `hanldeCC` 실행
+  document.querySelector("#search-button").addEventListener("click", hanldeCC);
+}
+
+document.addEventListener("DOMContentLoaded", main);
