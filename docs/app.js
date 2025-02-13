@@ -18,7 +18,7 @@ async function main() {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({ text }), // JSON 형식으로 변환하여 보냄
-        headers: { "Content-Type": "Application/json" },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
@@ -26,6 +26,8 @@ async function main() {
       }
 
       const json = await response.json(); // 응답을 JSON으로 변환
+      console.log("📢 서버 응답 데이터:", json); // 🔥 서버에서 받은 데이터 확인 (디버깅용)
+
       const { name, achievements } = json; // ✅ 서버에서 받은 데이터 추출
 
       if (!achievements || !Array.isArray(achievements) || achievements.length !== 3) {
@@ -42,20 +44,27 @@ async function main() {
       // ✅ 🔥 업적 이미지 3장 추가
       achievements.forEach(({ achievement, imageUrl }, index) => {
         const achievementWrapper = document.createElement("div");
-        achievementWrapper.classList.add("achievement-item");
+        achievementWrapper.classList.add("achievement-item", "text-center");
 
         const achievementTitle = document.createElement("h5");
         achievementTitle.textContent = achievement || `업적 ${index + 1}`; // 기본값 설정
 
         const imageTag = document.createElement("img");
-        imageTag.classList.add("img-fluid", "mt-3", "achievement-image"); // Bootstrap 스타일 적용
+        imageTag.classList.add("img-fluid", "mt-3", "achievement-image", "rounded"); // Bootstrap 스타일 적용
         imageTag.src = imageUrl || "default-image.png"; // 기본 이미지 처리
         imageTag.alt = achievement || `업적 ${index + 1} 이미지`;
+
+        // 🔥 이미지가 로드되지 않으면 기본 이미지로 변경
+        imageTag.onerror = () => {
+          console.error("❌ 이미지 로드 실패:", imageUrl);
+          imageTag.src = "default-image.png"; // 기본 이미지 대체
+        };
 
         achievementWrapper.appendChild(achievementTitle);
         achievementWrapper.appendChild(imageTag);
         imageContainer.appendChild(achievementWrapper); // 업적 이미지 추가
       });
+
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);
       alert("위인 정보를 불러오는 중 오류가 발생했습니다.");
