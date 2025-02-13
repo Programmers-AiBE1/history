@@ -56,14 +56,16 @@
         <button type="submit" id="search-button" class="btn btn-success mt-2">검색</button>
       </form>
 
-      <!-- ✅ LLM이 생성한 설명이 들어갈 부분 -->
+      <!-- ✅ 🔥 위인 설명이 들어갈 영역 (더 나은 가독성을 위해 추가) -->
       <div id="info-container" class="mt-4 text-center">
-        <!-- AI가 생성한 설명이 여기에 출력됨 -->
+        <div class="card p-3 shadow-sm"> <!-- 🔥 카드 스타일 추가 -->
+          <p id="profile-desc-text" class="text-muted m-0">위인에 대한 설명이 여기에 표시됩니다.</p>
+        </div>
       </div>
 
-      <!-- ✅ 위인 업적 이미지 표시 영역 -->
-      <div id="image-container" class="mt-4 grid-container text-center">
-        <!-- AI가 생성한 업적 이미지가 여기에 추가될 예정 -->
+      <!-- ✅ 🔥 위인 업적 이미지 표시 영역 (각 이미지가 동일한 크기를 유지하도록 수정) -->
+      <div id="image-container" class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+        <!-- AI가 생성한 업적 이미지 3개가 여기에 추가될 예정 -->
       </div>
 
     </section>
