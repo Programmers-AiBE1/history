@@ -1,33 +1,81 @@
+/* ✅ 폰트 추가 */
 @font-face {
-    font-family: "Pretendard-Regular";
-    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-      format("woff");
-    /* font-weight: 400; */
-    /* font-style: normal; */
-  }
-  
-  @font-face {
-    font-family: "PartialSansKR-Regular";
-    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2")
-      format("woff2");
-    /* font-weight: normal;
-      font-style: normal; */
-  }
-  
-  body {
-    font-family: "Pretendard-Regular";
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  header {
-    font-family: "PartialSansKR-Regular";
-  }
-  
-  #box p {
-    white-space: pre-wrap;
-  }
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+}
+
+@font-face {
+  font-family: "PartialSansKR-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2")
+    format("woff2");
+}
+
+/* ✅ 전체 페이지 기본 폰트 적용 */
+body {
+  font-family: "PartialSansKR-Regular", sans-serif;
+}
+
+/* ✅ Stargram 제목에 `Pretendard-Regular` 적용 */
+h1 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ✅ 기존 스타일 유지하면서 레이아웃 변경 */
+.profile-container {
+display: flex;
+flex-direction: column; /* 세로 정렬 */
+align-items: center; /* 가운데 정렬 */
+text-align: center;
+gap: 10px;
+margin-bottom: 20px;
+}
+
+/* ✅ 프로필 사진 크기 조정 */
+.profile-img {
+width: 120px;
+height: 120px;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid #ddd; /* 사진 테두리 추가 */
+}
+
+/* ✅ 프로필 이름 & 설명 정렬 */
+.profile-info {
+flex: 1;
+text-align: center;
+}
+
+/* ✅ 검색 폼 디자인 개선 */
+#search-form {
+display: flex;
+justify-content: center;
+gap: 10px;
+margin-top: 20px;
+}
+
+#person-input {
+flex: 1;
+padding: 10px;
+font-size: 16px;
+border: 2px solid #ddd;
+border-radius: 5px;
+}
+
+button {
+padding: 10px 15px;
+font-size: 16px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #0056b3;
+}
