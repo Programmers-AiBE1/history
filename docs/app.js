@@ -2,9 +2,6 @@ async function main() {
   async function handleCC(event) {
     event.preventDefault(); // ✅ 기본 Form 제출 막기 (새로고침 방지)
 
-    // ✅ 로딩 스피너 표시
-    document.getElementById("loading-spinner").style.display = "block";
-
     // ✅ 서버 API URL
     const url = "https://coordinated-onyx-ethernet.glitch.me"; 
     const formData = new FormData(document.querySelector("#ccForm"));
@@ -13,7 +10,6 @@ async function main() {
     // ✅ 검색어가 없으면 요청하지 않음
     if (!text.trim()) {
       alert("검색할 위인의 이름을 입력하세요!");
-      document.getElementById("loading-spinner").style.display = "none";
       return;
     }
 
@@ -25,31 +21,37 @@ async function main() {
         headers: { "Content-Type": "Application/json" },
       });
 
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류: ${response.status}`);
+      }
+
       const json = await response.json(); // 응답을 JSON으로 변환
       const { name, description, achievements } = json; // ✅ 서버에서 받은 데이터 추출
 
-      // ✅ 로딩 스피너 숨기기
-      document.getElementById("loading-spinner").style.display = "none";
+      if (!achievements || !Array.isArray(achievements) || achievements.length !== 3) {
+        throw new Error("서버에서 받은 업적 데이터가 올바르지 않습니다.");
+      }
 
       // ✅ 🔥 위인 이름 & 설명 업데이트
-      document.getElementById("profile-name").textContent = name; // 위인 이름 업데이트
-      document.getElementById("profile-desc").textContent = description; // 위인 설명 업데이트
+      document.getElementById("profile-name").textContent = name || "이름 없음"; // 기본값 처리
+      document.getElementById("profile-desc").textContent = description || "설명 없음"; // 기본값 처리
 
       // ✅ 🔥 업적 이미지 표시 영역 초기화 후 추가
       const imageContainer = document.getElementById("image-container");
       imageContainer.innerHTML = ""; // 기존 업적 이미지 삭제
 
-      // ✅ 🔥 업적 이미지 3장 추가
-      achievements.forEach(({ achievement, imageUrl }) => {
+      // ✅ 🔥 업적 이미지 3장 추가 (안전하게 처리)
+      achievements.forEach(({ achievement, imageUrl }, index) => {
         const achievementWrapper = document.createElement("div");
         achievementWrapper.classList.add("achievement-item");
 
         const achievementTitle = document.createElement("h5");
-        achievementTitle.textContent = achievement; // 업적 제목 추가
+        achievementTitle.textContent = achievement || `업적 ${index + 1}`; // 기본값 설정
 
         const imageTag = document.createElement("img");
         imageTag.classList.add("img-fluid", "mt-3", "achievement-image"); // Bootstrap 스타일 적용
-        imageTag.src = imageUrl; // 서버에서 받은 업적 이미지 적용
+        imageTag.src = imageUrl || "default-image.png"; // 기본 이미지 처리
+        imageTag.alt = achievement || `업적 ${index + 1} 이미지`;
 
         achievementWrapper.appendChild(achievementTitle);
         achievementWrapper.appendChild(imageTag);
@@ -58,7 +60,6 @@ async function main() {
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);
       alert("위인 정보를 불러오는 중 오류가 발생했습니다.");
-      document.getElementById("loading-spinner").style.display = "none";
     }
   }
 
