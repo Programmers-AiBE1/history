@@ -45,11 +45,18 @@ async function main() {
       // ✅ 🔥 위인 이름 업데이트
       document.getElementById("profile-name").textContent = json.name || "이름 없음"; // 기본값 처리
 
+      // ✅ 🔥 프로필 이미지 업데이트
+      const profileImageTag = document.getElementById("profile-image");
+      profileImageTag.src = json.profileImage || "default-profile.png"; // 기본 프로필 이미지
+      profileImageTag.onerror = () => {
+        console.error("❌ 프로필 이미지 로드 실패:", json.profileImage);
+        profileImageTag.src = "default-profile.png"; // 기본 프로필 이미지로 대체
+      };
+
       // ✅ 🔥 업적 이미지 표시 영역 초기화 후 추가
       const imageContainer = document.getElementById("image-container");
       imageContainer.innerHTML = ""; // 기존 업적 이미지 삭제
 
-      // ✅ 🔥 업적 이미지 3장 추가 (서버 응답 형식에 맞게 처리)
       json.achievements.forEach(({ achievement, imageUrl }, index) => {
         const achievementWrapper = document.createElement("div");
         achievementWrapper.classList.add("achievement-item", "text-center");
@@ -62,9 +69,8 @@ async function main() {
         imageTag.src = imageUrl || "default-image.png";
         imageTag.alt = achievement || `업적 이미지 ${index + 1}`;
 
-        // 🔥 이미지 로딩 실패 시 기본 이미지 표시
         imageTag.onerror = () => {
-          console.error("❌ 이미지 로드 실패:", imageUrl);
+          console.error("❌ 업적 이미지 로드 실패:", imageUrl);
           imageTag.src = "default-image.png"; // 기본 이미지 대체
         };
 
@@ -80,11 +86,7 @@ async function main() {
     }
   }
 
-  // ✅ 폼 제출 시 `handleCC` 실행
   document.querySelector("#ccForm").addEventListener("submit", handleCC);
-
-  // ✅ 검색 버튼 클릭 시에도 `handleCC` 실행
-  document.querySelector("#search-button").addEventListener("click", handleCC);
 }
 
 document.addEventListener("DOMContentLoaded", main);
