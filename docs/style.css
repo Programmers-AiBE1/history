@@ -1,40 +1,137 @@
+/* ✅ 웹 폰트 적용 */
 @font-face {
   font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  /* font-weight: 400; */
-  /* font-style: normal; */
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "PartialSansKR-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2")
-    format("woff2");
-  /* font-weight: normal;
-    font-style: normal; */
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2") format("woff2");
 }
 
 body {
   font-family: "Pretendard-Regular";
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-header {
+h1, h2, h3, h4, h5, h6, header {
   font-family: "PartialSansKR-Regular";
 }
-/* ✅ 프로필 이미지 크기 조정 */
-.profile-img {
-  width: 150px; /* ✅ 원하는 크기로 조절 (예: 150px) */
-  height: 150px; /* ✅ 높이도 동일하게 맞춤 */
-  object-fit: cover; /* ✅ 이미지 비율 유지하면서 크롭 */
-  border-radius: 50%; /* ✅ 원형 유지 */
+
+/* ✅ 스타그램 로고 스타일 */
+.logo {
+    font-weight: bold;
+    font-size: 28px;
+    text-align: center;
+    margin: 20px auto;
 }
 
+/* ✅ 전체 페이지의 너비를 제한하고 가운데 정렬 */
+.container {
+    max-width: 960px;
+    margin: auto;
+}
+
+/* ✅ 프로필 영역 정렬 */
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+/* ✅ 프로필 이미지 설정 */
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* ✅ 프로필 정보 정렬 */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ✅ 프로필 통계 스타일 */
+.profile-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 16px;
+    justify-content: center;
+}
+
+/* ✅ 검색 입력 폼 스타일 */
+#ccForm {
+    text-align: center;
+}
+
+#searchInput {
+    width: 50%;
+    margin: auto;
+    display: inline;
+}
+
+#search-button {
+    margin-top: 10px;
+}
+
+/* ✅ 카드 스타일 */
+#info-container .card {
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ 게시물 이미지 정렬 */
+#image-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ✅ 반응형 조정 */
+@media (max-width: 768px) {
+    .profile-box {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    .profile-stats {
+        justify-content: center;
+    }
+    #searchInput {
+        width: 80%;
+    }
+    #image-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    #image-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+    #searchInput {
+        width: 90%;
+    }
+}
+
+/* ✅ 기타 요소 스타일 */
 #box p {
   white-space: pre-wrap;
 }
