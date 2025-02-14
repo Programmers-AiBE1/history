@@ -1,20 +1,20 @@
-/* ✅ 웹 폰트 적용 */
+/* ✅ 웹 폰트 적용 (Instagram 스타일) */
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+  font-family: "Instagram Sans";
+  src: url("https://fonts.cdnfonts.com/s/92452/InstagramSans-Regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: "PartialSansKR-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2") format("woff2");
+  font-family: "Instagram Sans Bold";
+  src: url("https://fonts.cdnfonts.com/s/92452/InstagramSans-Bold.woff") format("woff");
 }
 
 body {
-  font-family: "Pretendard-Regular";
+  font-family: "Instagram Sans", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, header {
-  font-family: "PartialSansKR-Regular";
+  font-family: "Instagram Sans Bold", sans-serif;
 }
 
 /* ✅ 스타그램 로고 스타일 */
